@@ -1,0 +1,39 @@
+* {
+  margin: 5px;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui;
+  color: rgb(73, 73, 73);
+  background-color: #f0eded;
+  min-height: 100vh;
+  
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+}
+
+.genre-button {
+  border: none;
+  margin-left: 150px;
+  font-size: 2rem;
+  padding: 2rem 5rem;
+  border-radius: 0.7rem;
+  color: white;
+  background-color: rgb(216, 11, 11);
+  cursor: pointer;
+  box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+input {
+  display: inline-block;
+  width: 400px;
+  height: 20px;
+  margin: 20px;
+}
+
