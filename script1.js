@@ -35,7 +35,7 @@ buttons.forEach(button => {
         break;
       }
       if (i === stations.length - 1) {
-        console.log(`No station found for genre "${genre}"`);
+        alert(`No station found for genre "${genre}"`);
       }
     }
   });
