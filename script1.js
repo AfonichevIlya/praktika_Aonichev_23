@@ -1,32 +1,42 @@
-const countrySelect = document.getElementById('country-select');
-const genreButtons = document.querySelectorAll('.genre-button');
+// Получаем элементы со страницы
+const countryInput = document.querySelector('#country-input');
+const buttons = document.querySelectorAll('.genre-button');
 
-async function krData(strana_str) {
-  const response = await fetch(`http://de1.api.radio-browser.info/json/stations/bycountry/${strana_str}`);
-  const stations = await response.json();
-  return stations;
-}
-
-const getValue = function (array, knopka) {
-  // Выбираем только те станции, у которых есть тег с жанром, совпадающим с кнопкой
-  const filteredStations = array.filter(station => station.tags.includes(knopka.dataset.genre));
-  
-  if (filteredStations.length > 0) {
-    // Открываем первую радиостанцию из выбранных
-    window.open(filteredStations[0].url);
-  } else {
-    alert(`Не найдено станций с жанром ${knopka.dataset.genre}`);
+// Функция для получения данных с API RadioBrowser
+async function krData(strana) {
+  try {
+    const response = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${strana}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return [];
   }
 }
 
-genreButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // Получаем выбранную страну из выпадающего списка
-    const strana_str = countrySelect.value;
+// Функция для открытия ссылки на радиостанцию в новой вкладке
+function openStationLink(link) {
+  window.open(link, '_blank');
+}
 
-    // Получаем информацию о радиостанциях в выбранной стране
-    krData(strana_str)
-      .then(stations => getValue(stations, button))
-      .catch(error => console.error(error));
+// Обработчик события для кнопок жанров
+buttons.forEach(button => {
+  button.addEventListener('click', async () => {
+    const country = countryInput.value.trim();
+    const genre = button.dataset.genre;
+    const stations = await krData(country);
+    for (let i = 0; i < stations.length; i++) {
+      const station = stations[i];
+      if (station.tags.includes(genre)) {
+        openStationLink(station.homepage);
+        break;
+      }
+      if (i === stations.length - 1) {
+        console.log(`No station found for genre "${genre}"`);
+      }
+    }
   });
 });
