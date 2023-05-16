@@ -1,6 +1,8 @@
 // Получаем элементы со страницы
 const countryInput = document.querySelector('#country-input');
 const buttons = document.querySelectorAll('.genre-button');
+const radioTitle = document.querySelector('#radio-title');
+const favicon = document.querySelector('#favicon');
 
 // Функция для получения данных с API RadioBrowser
 async function krData(strana) {
@@ -17,9 +19,11 @@ async function krData(strana) {
   }
 }
 
-// Функция для открытия ссылки на радиостанцию в новой вкладке
-function openStationLink(link) {
-  window.open(link, '_blank');
+// Функция для открытия ссылки на радиостанцию в новой вкладке и вывода названия радиостанции и favicon
+function openStationLink(station) {
+  window.open(station.homepage, '_blank');
+  radioTitle.textContent = station.name;
+  favicon.href = station.favicon;
 }
 
 // Обработчик события для кнопок жанров
