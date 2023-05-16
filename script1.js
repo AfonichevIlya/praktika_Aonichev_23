@@ -18,7 +18,6 @@ async function krData(strana) {
     return [];
   }
 }
-
 // Функция для открытия ссылки на радиостанцию в новой вкладке и вывода названия радиостанции и favicon
 function openStationLink(station) {
   window.open(station.homepage, '_blank');
