@@ -7,12 +7,12 @@ async function krData(strana) {
   try {
     const response = await fetch(`https://de1.api.radio-browser.info/json/stations/bycountry/${strana}`);
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Ошибка сети');
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Ошибка:', error);
     return [];
   }
 }
@@ -35,7 +35,7 @@ buttons.forEach(button => {
         break;
       }
       if (i === stations.length - 1) {
-        alert(`No station found for genre "${genre}"`);
+        alert(`Станций с жанром "${genre}" не найдено`);
       }
     }
   });
